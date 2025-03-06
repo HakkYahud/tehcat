@@ -1,0 +1,1 @@
+### TheHive integration .yaml file
