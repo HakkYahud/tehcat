@@ -1,0 +1,33 @@
+type: action
+definition:
+  name: add_observable_alert
+  namespace: integrations.thehive
+  title: Add observable to an alert
+  description: Add observable to an alert
+  display_group: TheHive
+  secrets:
+    - name: thehive4
+      keys: ["apikey", "url"]
+  expects:
+    id_alert:
+      type: str
+      description: Alert ID
+    data_obs:
+      type: str
+      description: Value of the observable
+    datatype_obs:
+      type: str
+      description: Data type of the observable
+  steps:
+    - ref: update_alert
+      action: core.http_request
+      args:
+        url: ${{ SECRETS.thehive4.url }}/api/alert/${{ inputs.id_alert }}/artifact
+        method: POST
+        headers:
+          Authorization: Bearer ${{ SECRETS.thehive4.apikey }}
+          Content-Type: application/json
+        payload:
+          data: ${{ inputs.data_obs }}
+          dataType: ${{ inputs.datatype_obs }} 
+  returns: ${{ steps.update_alert.result }}

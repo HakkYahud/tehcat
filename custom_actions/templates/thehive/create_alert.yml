@@ -1,0 +1,39 @@
+type: action
+definition:
+  title: Create Alert
+  description: Create Alert on TheHive
+  display_group: TheHive
+  namespace: integrations.thehive
+  name: create_alert
+  secrets:
+    - name: thehive4
+      keys: ["apikey", "url"]
+  expects:
+    title_alert:
+      type: str
+      description: Case title
+    description_alert:
+      type: str
+      description: Description of the case, support markdown
+    type_alert:
+      type: str
+      description: Alert type
+    source_reference:
+      type: str
+      description: reference must be unique, can match with the event id
+  steps:
+    - ref: create_alert
+      action: core.http_request
+      args:
+        url: ${{ SECRETS.thehive4.url }}/api/alert
+        method: POST
+        headers:
+          Authorization: Bearer ${{ SECRETS.thehive4.apikey }}
+          Content-Type: application/json
+        payload:
+          title: ${{ inputs.title_alert }}
+          description: ${{ inputs.description_alert }}
+          type: ${{ inputs.type_alert }}
+          source: tracecat
+          sourceRef: ${{ inputs.source_reference }}
+  returns: ${{ steps.create_case.alert }}
