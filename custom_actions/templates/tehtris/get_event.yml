@@ -1,0 +1,37 @@
+type: action
+definition:
+  name: get_event
+  namespace: integrations.tehtris
+  title: Get Event from Tehtris XDR
+  description: Search for some XDR Tehtris events
+  display_group: Tehtris
+  secrets:
+    - name: tehtris
+      keys:
+        - apikey
+      optional_keys: null
+      optional: false
+  expects:
+    trigram:
+      type: str
+      description: The EDR trigram to target
+      default: null
+    filterID:
+      type: str
+      description: filterID can be retrieved in the filter details
+      default: null
+    epochDate:
+      type: int
+      description: epoch time is the format required
+      default: null
+  steps:
+    - ref: get_event
+      action: core.http_request
+      args:
+        url: https://${{ inputs.trigram }}.api.tehtris.net/api/xdr/v1/event?fromDate=${{ inputs.epochDate }}&limit=10&filterID=${{ inputs.filterID }}
+        method: GET
+        headers:
+          accept: application/json
+          Authorization: Basic ${{ SECRETS.tehtris.apikey }}
+  returns: ${{ steps.get_edr_configuration.result }}
+
