@@ -10,7 +10,7 @@ definition:
       keys: ["apikey", "url"]
   expects:
     id_alert:
-      type: int
+      type: str
       description: Alert ID
     data_obs:
       type: str
