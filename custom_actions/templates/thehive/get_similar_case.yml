@@ -1,0 +1,39 @@
+type: action
+definition:
+  title: Get Similar Case 
+  description: Retrieve cases having similar observable from alert
+  display_group: TheHive
+  namespace: integrations.thehive
+  name: get_similar_case
+  secrets:
+    - name: thehive4
+      keys: ["apikey", "url"]
+  expects:
+    alert_id:
+      type: str
+      description: Alert ID
+    case_tag:
+      type: str
+      description: Tag indicate the type alert
+  steps:
+    - ref: thehive_query
+      action: core.http_request
+      args:
+        url: ${{ SECRETS.thehive4.url }}/api/v1/query
+        method: POST
+        headers:
+          Authorization: Bearer ${{ SECRETS.thehive4.apikey }}
+          Content-Type: application/json
+        payload:
+          query:
+            - _name: getAlert
+              idOrName: ${{ inputs.alert_id }}
+            - _name: similarCases
+              caseFilter:
+                _and:
+                  - _field: status
+                    _value: Open
+                  - _like:
+                      _field: tags
+                      _value: ${{ inputs.case_tag }}
+  returns: ${{ steps.thehive_query.result }}
