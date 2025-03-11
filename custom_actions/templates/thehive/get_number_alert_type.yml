@@ -1,0 +1,40 @@
+type: action
+definition:
+  title: Get Number of Alert 
+  description: Retrieve the amount of alert of the same type
+  display_group: TheHive
+  namespace: integrations.thehive
+  name: get_number_alert_type
+  secrets:
+    - name: thehive4
+      keys: ["apikey", "url"]
+  expects:
+    type_alert:
+      type: str
+      description: Alert type
+    time:
+      type: int
+      description: time to search for alerts, 10 minutes from now
+  steps:
+    - ref: thehive_query
+      action: core.http_request
+      args:
+        url: ${{ SECRETS.thehive4.url }}/api/v1/query
+        method: POST
+        headers:
+          Authorization: Bearer ${{ SECRETS.thehive4.apikey }}
+          Content-Type: application/json
+        payload:
+          query:
+            - _name: listAlert
+            - _name: filter
+              _and:
+                - _between:
+                    _field: date
+                    _from: 1741618800723
+                    _to: 1741705199723
+                - _like:
+                    _field: type
+                    _value: Ransomware alert
+            - _name: limitedCount
+  returns: ${{ steps.thehive_query.result }}
