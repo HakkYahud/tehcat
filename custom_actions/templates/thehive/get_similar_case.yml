@@ -14,7 +14,7 @@ definition:
       description: Alert ID
     case_tag:
       type: str
-      description: Tag indicate the type alert
+      description: Tag indicates the type alert
   steps:
     - ref: thehive_query
       action: core.http_request
