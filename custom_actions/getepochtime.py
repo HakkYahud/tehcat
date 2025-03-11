@@ -12,7 +12,9 @@ from tracecat_registry import registry
 )
 
 def get_epoch_time(
-    hourtosub: Annotated[int, Field(default=1)],
+    timetosub: Annotated[int, Field(default=1)], unit: Annotated[str, Field(...,description="unit to substract (hours / minutes)")]
     ) -> int:
-    return int((datetime.now() - timedelta(hours=hourtosub)).timestamp())
-
+    if unit == "hours":
+        return int((datetime.now() - timedelta(hours=timetosub)).timestamp())
+    elif unit == "minutes":
+        return int((datetime.now() - timedelta(minutes=timetosub)).timestamp())
