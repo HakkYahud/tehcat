@@ -36,4 +36,4 @@ definition:
           type: ${{ inputs.type_alert }}
           source: tracecat
           sourceRef: ${{ inputs.source_reference }}
-  returns: ${{ steps.create_alert.result }}
+  returns: ${{ steps.create_alert.result.data }}
