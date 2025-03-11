@@ -1,0 +1,27 @@
+type: action
+definition:
+  title: Merge Alert to New Case
+  description: Merge an alert to a new case
+  display_group: TheHive
+  namespace: integrations.thehive
+  name: merge_alert_new_case
+  secrets:
+    - name: thehive4
+      keys: ["apikey", "url"]
+  expects:
+    alert_id:
+      type: str
+      description: Alert ID
+    case_id:
+      type: str
+      description: Case ID
+  steps:
+    - ref: merge_case
+      action: core.http_request
+      args:
+        url: ${{ SECRETS.thehive4.url }}/api/alert/${{ inputs.alert_id }}/merge/${{ inputs.case_id }}
+        method: POST
+        headers:
+          Authorization: Bearer ${{ SECRETS.thehive4.apikey }}
+          Content-Type: application/json
+  returns: ${{ steps.merge_case.result }}
