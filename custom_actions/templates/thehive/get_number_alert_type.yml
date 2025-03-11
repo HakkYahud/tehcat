@@ -31,10 +31,10 @@ definition:
               _and:
                 - _between:
                     _field: date
-                    _from: 1741618800723
-                    _to: 1741705199723
+                    _from: ${{ inputs.time }}
+                    _to: ${{ (inputs.time)+599993 }}
                 - _like:
                     _field: type
-                    _value: Ransomware alert
+                    _value: ${{ inputs.type_alert }}
             - _name: limitedCount
-  returns: ${{ steps.thehive_query.result }}
+  returns: ${{ steps.thehive_query.result.data }}
