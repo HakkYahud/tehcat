@@ -11,7 +11,7 @@ from tracecat_registry import registry
     namespace="integrations.tehtris",
 )
 
-def get_epoch_time(
+def get_epoch_time_milliseconds(
     timetosub: Annotated[int, Field(default=1)], unit: Annotated[str, Field(...,description="unit to substract (hours / minutes)")]
     ) -> int:
     if unit == "hours":
