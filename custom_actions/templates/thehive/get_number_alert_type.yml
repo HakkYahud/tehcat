@@ -32,7 +32,7 @@ definition:
                 - _between:
                     _field: date
                     _from: ${{ inputs.time }}
-                    _to: ${{ (inputs.time)+599993 }}
+                    _to: ${{ FN.to_timestamp(FN.now(), "ms") }}
                 - _like:
                     _field: type
                     _value: ${{ inputs.type_alert }}
