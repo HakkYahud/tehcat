@@ -14,9 +14,6 @@ from time import sleep
 def sleep(
     time: Annotated[float, Field(..., description="Time to pause the program")],
     ) -> float:
-    wakeup = False
-    while wakeup is False:
-        sleep(time)
-        wakeup = True
+    sleep(time)
     
     return time
