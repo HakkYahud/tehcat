@@ -1,0 +1,30 @@
+type: action
+definition:
+  name: responder_get_parent_process
+  namespace: integrations.thehive
+  title: Responder_Get_Parent_Process
+  description: Call the responder GetParentProcess
+  display_group: TheHive  
+  secrets:
+    - name: thehive4
+      keys: ["apikey", "url"]
+  expects:
+    obs_id:
+      type: str
+      description: Observable ID
+      default: null
+  steps:
+    - ref: responder_cortex
+      action: core.http_request
+      args:
+        url: ${{ SECRETS.thehive4.url }}/api/connector/cortex/action
+        method: POST
+        headers:
+          Content-Type: application/json
+          Authorization: Bearer ${{ SECRETS.thehive4.apikey }}
+        payload:
+          objectId: ${{ inputs.id_obs }}
+          mandatory: true
+          objectType: case_artifact
+          responderId: ed6e2202999aab47f4f116abf31d00bf
+  returns: ${{ steps.responder_cortex.result }}
