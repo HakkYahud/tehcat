@@ -1,0 +1,30 @@
+type: action
+definition:
+  name: responder_get_process_tree
+  namespace: integrations.thehive
+  title: Responder_Get_Process_Tree
+  description: Call the responder GetProcessTree
+  display_group: TheHive  
+  secrets:
+    - name: thehive4
+      keys: ["apikey", "url"]
+  expects:
+    case_id:
+      type: str
+      description: Case ID
+      default: null
+  steps:
+    - ref: responder_cortex
+      action: core.http_request
+      args:
+        url: ${{ SECRETS.thehive4.url }}/api/connector/cortex/action
+        method: POST
+        headers:
+          Content-Type: application/json
+          Authorization: Bearer ${{ SECRETS.thehive4.apikey }}
+        payload:
+          objectId: ${{ inputs.case_id }}
+          mandatory: true
+          objectType: case
+          responderId: 6d6e228736b97e80f0709f1f9af0e2b0
+  returns: ${{ steps.responder_cortex.result }}
