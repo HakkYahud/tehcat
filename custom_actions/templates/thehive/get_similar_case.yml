@@ -34,6 +34,6 @@ definition:
                   - _field: status
                     _value: Open
                   - _like:
-                      _field: tag
+                      _field: tags
                       _value: ${{ inputs.case_tag }}
   returns: ${{ steps.thehive_query.result }}
