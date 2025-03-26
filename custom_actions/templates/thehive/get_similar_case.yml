@@ -12,9 +12,9 @@ definition:
     alert_id:
       type: str
       description: Alert ID
-    case_tag:
+    case_title:
       type: str
-      description: Tag indicates the type alert
+      description: Case title link to alert
   steps:
     - ref: thehive_query
       action: core.http_request
@@ -34,6 +34,6 @@ definition:
                   - _field: status
                     _value: Open
                   - _like:
-                      _field: tags
-                      _value: ${{ inputs.case_tag }}
+                      _field: title
+                      _value: ${{ inputs.case_title }}
   returns: ${{ steps.thehive_query.result }}
