@@ -9,10 +9,14 @@ definition:
     - name: thehive4
       keys: ["apikey", "url"]
   expects:
-    obs_id:
+    object_id:
       type: str
-      description: Observable ID
+      description: Object ID
       default: null
+    object_type:
+      type: str
+      description: Object type
+      default: alert
   steps:
     - ref: responder_cortex
       action: core.http_request
@@ -23,8 +27,8 @@ definition:
           Content-Type: application/json
           Authorization: Bearer ${{ SECRETS.thehive4.apikey }}
         payload:
-          objectId: ${{ inputs.id_obs }}
+          objectId: ${{ inputs.object_id }}
           mandatory: true
-          objectType: alert
+          objectType: ${{ inputs.object_type }}
           responderId: 1f40aff6b52c577cc87a0617f8f977af
   returns: ${{ steps.responder_cortex.result }}
