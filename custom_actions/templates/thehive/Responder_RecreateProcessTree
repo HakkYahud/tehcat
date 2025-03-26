@@ -1,0 +1,30 @@
+type: action
+definition:
+  name: responder_recreate_process_tree
+  namespace: integrations.thehive
+  title: Responder_Recreate_Process_Tree
+  description: Call the responder RecreateProcessTree
+  display_group: TheHive  
+  secrets:
+    - name: thehive4
+      keys: ["apikey", "url"]
+  expects:
+    obs_id:
+      type: str
+      description: Observable ID
+      default: null
+  steps:
+    - ref: responder_cortex
+      action: core.http_request
+      args:
+        url: ${{ SECRETS.thehive4.url }}/api/connector/cortex/action
+        method: POST
+        headers:
+          Content-Type: application/json
+          Authorization: Bearer ${{ SECRETS.thehive4.apikey }}
+        payload:
+          objectId: ${{ inputs.id_obs }}
+          mandatory: true
+          objectType: alert
+          responderId: 1f40aff6b52c577cc87a0617f8f977af
+  returns: ${{ steps.responder_cortex.result }}
