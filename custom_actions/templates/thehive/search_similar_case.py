@@ -17,10 +17,6 @@ thehive_secret = RegistrySecret(
     secrets=[thehive_secret],
 )
 
-baseUrl=secrets.get("url")
-apikey=secrets.get("apikey")
-headers = {"Content-Type":"application/json", "Authorization":f"Bearer {apikey}"}
-
 async def search_similar_case(
     alert_id: Annotated[
         str,
@@ -37,6 +33,9 @@ async def search_similar_case(
         ),
     ],
 ) -> dict[str, Any]:
+    baseUrl=secrets.get("url")
+    apikey=secrets.get("apikey")
+    headers = {"Content-Type":"application/json", "Authorization":f"Bearer {apikey}"}
     apiPath = "/api/v1/query"
     url = baseUrl + apiPath
     caseToMerge = None
