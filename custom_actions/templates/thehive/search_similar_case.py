@@ -13,7 +13,7 @@ thehive_secret = RegistrySecret(
     default_title="Search similar case",
     description="Search for the most recent similar case from an alert on TheHive",
     display_group="TheHive",
-    namespace="integration.",
+    namespace="integration.thehive",
     secrets=[thehive_secret],
 )
 
