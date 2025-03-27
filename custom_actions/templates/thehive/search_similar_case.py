@@ -44,7 +44,7 @@ async def search_similar_case(
     similar_cases = requests.post(url, headers=headers, data=query_string)
     similar_cases = similar_cases.json()
     for case in similar_cases:
-      if case['observableTypes']['cmdline'] == 1
+      if case['observableTypes']['cmdline'] == 1:
         caseToMerge = case
         break
 
