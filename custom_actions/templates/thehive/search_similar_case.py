@@ -17,8 +17,8 @@ thehive_secret = RegistrySecret(
     secrets=[thehive_secret],
 )
 
-baseUrl=secrets.get("url"),
-apikey=secrets.get("apikey"),
+baseUrl=secrets.get("url")
+apikey=secrets.get("apikey")
 headers = {"Content-Type":"application/json", "Authorization":f"Bearer {apikey}"}
 
 async def search_similar_case(
