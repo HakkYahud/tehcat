@@ -28,5 +28,5 @@ definition:
           Authorization: Bearer ${{ SECRETS.thehive4.apikey }}
         payload:
           mandatory: true
-          customFields.trigram.string: ${{ ACTIONS.lookup_table.result.trigram }} #Commentaire
+          customFields.trigram.string: "XFF" #Commentaire
   returns: ${{ steps.update_case.result }}
