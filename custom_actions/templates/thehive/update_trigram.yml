@@ -14,7 +14,7 @@ definition:
       description: Case ID
       default: null
     trigram:
-      type: int
+      type: str
       description: Trigram value
       default: null
   steps:
