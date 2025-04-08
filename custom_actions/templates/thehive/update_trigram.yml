@@ -28,5 +28,5 @@ definition:
           Authorization: Bearer ${{ SECRETS.thehive4.apikey }}
         payload:
           mandatory: true
-          customFields.trigram.string: ${{ ACTIONS.reshape.result }} #Commentaire
+          customFields.trigram.string: ${{ inputs.trigram }} #Commentaire
   returns: ${{ steps.update_case.result }}
