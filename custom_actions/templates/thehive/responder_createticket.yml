@@ -1,0 +1,36 @@
+type: action
+definition:
+  name: responder_createticket
+  namespace: integrations.thehive
+  title: Responder_CreateTicket
+  description: Call the responder CreateTicket
+  display_group: TheHive
+  secrets:
+    - name: thehive4
+      keys:
+        - apikey
+        - url
+  expects:
+    object_id:
+      type: str
+      description: Object ID
+      default: null
+    object_type:
+      type: str
+      description: Object type
+      default: alert
+  steps:
+    - ref: responder_cortex
+      action: core.http_request
+      args:
+        url: ${{ SECRETS.thehive4.url }}/api/connector/cortex/action
+        method: POST
+        headers:
+          Content-Type: application/json
+          Authorization: Bearer ${{ SECRETS.thehive4.apikey }}
+        payload:
+          objectId: ${{ inputs.object_id }}
+          mandatory: true
+          objectType: ${{ inputs.object_type }}
+          responderId: db0b3056a45361b02ad6b66dac6b63b5
+  returns: ${{ steps.responder_cortex.result }}
