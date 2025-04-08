@@ -13,9 +13,9 @@ definition:
       type: str
       description: Case ID
       default: null
-    event_id:
+    trigram:
       type: int
-      description: Event ID value from XDR event
+      description: Trigram value
       default: null
   steps:
     - ref: update_case
