@@ -1,0 +1,30 @@
+type: action
+definition:
+  title: Send Notification
+  description: Send notification to Teams
+  display_group: Teams
+  namespace: integrations.teams
+  name: send_notification
+  expects:
+    teams_webhook:
+      type: str
+      description: Teams webhook to notify the channel
+    case_title:
+      type: str
+      description: Title giving the type of incident
+    case_url:
+      type: str
+      description: TheHive case url
+  steps:
+    - ref: send_notification
+      action: core.http_request
+      args:
+        url: ${{ inputs.teams_webhook }}
+        method: POST
+        headers:
+          Authorization: Bearer ${{ SECRETS.thehive4.apikey }}
+          Content-Type: application/json
+        payload:
+          title: ${{ inputs.case_title }}
+          case: ${{ inputs.case_url }}
+  returns: ${{ steps.send_notification.result }}
