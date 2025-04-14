@@ -22,7 +22,6 @@ definition:
         url: ${{ inputs.teams_webhook }}
         method: POST
         headers:
-          Authorization: Bearer ${{ SECRETS.thehive4.apikey }}
           Content-Type: application/json
         payload:
           title: ${{ inputs.case_title }}
