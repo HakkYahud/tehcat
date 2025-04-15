@@ -18,6 +18,9 @@ definition:
     datatype_obs:
       type: str
       description: Data type of the observable
+    description_obs:
+      type: str
+      description: alertid will be placed in the description of the alert
   steps:
     - ref: update_alert
       action: core.http_request
@@ -29,5 +32,6 @@ definition:
           Content-Type: application/json
         payload:
           data: ${{ inputs.data_obs }}
-          dataType: ${{ inputs.datatype_obs }} 
+          dataType: ${{ inputs.datatype_obs }}
+          message: ${{ inputs.description_obs }}
   returns: ${{ steps.update_alert.result }}
