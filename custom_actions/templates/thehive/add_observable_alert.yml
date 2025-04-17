@@ -34,5 +34,5 @@ definition:
           data: ${{ inputs.data_obs }}
           dataType: ${{ inputs.datatype_obs }}
           tags: 
-            - ${{ inputs.tag_obs }}
+            - thehive_alertid:${{ inputs.tag_obs }}
   returns: ${{ steps.update_alert.result }}
