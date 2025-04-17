@@ -17,10 +17,6 @@ definition:
       type: str
       description: Object type
       default: alert
-    trigram:
-      type: str
-      description: Trigram of the XDR appliance
-      default: null
   steps:
     - ref: responder_cortex
       action: core.http_request
