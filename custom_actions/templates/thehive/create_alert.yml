@@ -39,5 +39,6 @@ definition:
           type: ${{ inputs.type_alert }}
           source: tracecat
           sourceRef: ${{ inputs.source_reference }}
-          tags: trigram:${{ inputs.trigram }}
+          tags: 
+            - trigram:${{ inputs.trigram }}
   returns: ${{ steps.create_alert.result.data }}
