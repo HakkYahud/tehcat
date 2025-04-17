@@ -21,6 +21,9 @@ definition:
     source_reference:
       type: str
       description: reference must be unique, can match with the event id
+    trigram:
+      type: str
+      description: Trigram of XDR appliance
   steps:
     - ref: create_alert
       action: core.http_request
@@ -36,4 +39,5 @@ definition:
           type: ${{ inputs.type_alert }}
           source: tracecat
           sourceRef: ${{ inputs.source_reference }}
+          tags: trigram:${{ inputs.trigram }}
   returns: ${{ steps.create_alert.result.data }}
