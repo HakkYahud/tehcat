@@ -40,5 +40,5 @@ definition:
           source: tracecat
           sourceRef: ${{ inputs.source_reference }}
           tags: 
-            - trigram:${{ inputs.trigram }}
+            - tehtris_xdr_trigram:${{ inputs.trigram }}
   returns: ${{ steps.create_alert.result.data }}
