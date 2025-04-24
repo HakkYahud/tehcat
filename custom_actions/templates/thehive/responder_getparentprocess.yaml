@@ -13,6 +13,10 @@ definition:
       type: str
       description: Observable ID
       default: null
+    object_type:
+      type: str
+      description: Object type
+      default: alert
   steps:
     - ref: responder_cortex
       action: core.http_request
@@ -23,8 +27,8 @@ definition:
           Content-Type: application/json
           Authorization: Bearer ${{ SECRETS.thehive4.apikey }}
         payload:
-          objectId: ${{ inputs.id_obs }}
+          objectId: ${{ inputs.obs_id }}
           mandatory: true
-          objectType: case_artifact
+          objectType: ${{ inputs.object_type }}
           responderId: ed6e2202999aab47f4f116abf31d00bf
   returns: ${{ steps.responder_cortex.result }}
