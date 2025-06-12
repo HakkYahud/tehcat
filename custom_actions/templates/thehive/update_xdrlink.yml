@@ -17,6 +17,10 @@ definition:
       type: int
       description: Event ID value from XDR event
       default: null
+    xdr:
+      type: str
+      description: XDR Trigram
+      default: null
   steps:
     - ref: update_case
       action: core.http_request
@@ -28,5 +32,5 @@ definition:
           Authorization: Bearer ${{ SECRETS.thehive4.apikey }}
         payload:
           mandatory: true
-          customFields.xdr-link.string: https://xff.tehtris.net/Endpoint/events?id=${{ str(inputs.event_id) }}
+          customFields.xdr-link.string: https://${{ inputs.xdr }}.tehtris.net/Endpoint/events?id=${{ str(inputs.event_id) }}
   returns: ${{ steps.update_case.result }}
