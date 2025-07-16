@@ -18,6 +18,9 @@ definition:
     trigram:
       type: str
       description: Trigram of the event
+    case_priority:
+      type: str
+      description: Priority of the incident
   steps:
     - ref: send_notification
       action: core.http_request
@@ -30,4 +33,5 @@ definition:
           title: ${{ inputs.case_title }}
           case: ${{ inputs.case_url }}
           trigram: ${{ inputs.trigram }}
+          priority: ${{ inputs.case_priority }}
   returns: ${{ steps.send_notification.result }}
