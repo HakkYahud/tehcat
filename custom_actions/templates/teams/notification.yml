@@ -15,6 +15,9 @@ definition:
     case_url:
       type: str
       description: TheHive case url
+    trigram:
+      type: str
+      description: Trigram of the event
   steps:
     - ref: send_notification
       action: core.http_request
@@ -26,4 +29,5 @@ definition:
         payload:
           title: ${{ inputs.case_title }}
           case: ${{ inputs.case_url }}
+          trigram: ${{ inputs.trigram }}
   returns: ${{ steps.send_notification.result }}
