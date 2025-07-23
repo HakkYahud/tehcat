@@ -12,5 +12,8 @@ from tracecat_registry import registry
 def extract_tag(
     tag: Annotated[str, Field(..., description="TAG of the affected system")],
     ) -> str:
-    trigram = tag.split("_")[0]
-    return trigram
+    if len(tag) > 3:
+        trigram = tag.split("_")[0]
+        return trigram
+    else: 
+        return tag
