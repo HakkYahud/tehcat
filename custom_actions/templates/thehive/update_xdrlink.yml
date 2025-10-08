@@ -32,5 +32,5 @@ definition:
           Authorization: Bearer ${{ SECRETS.thehive4.apikey }}
         payload:
           mandatory: true
-          customFields.xdr-link.string: https://${{ inputs.xdr }}.tehtris.net/Endpoint/events?id=${{ str(inputs.event_id) }}
+          customFields.xdr-link.string: https://${{ inputs.xdr }}.tehtris.net/show.php?mod=XDR&type=Events&subTab=events&id=${{ str(inputs.event_id) }}
   returns: ${{ steps.update_case.result }}
