@@ -12,9 +12,11 @@ import re
 )
 
 def find_and_replace(
-    message: Annotated[str, Field(..., description="Message target to find the character to replace")],
+    message: Annotated[Any, Field(..., description="Message target to find the character to replace")],
     char: Annotated[str, Field(..., description="Character to replace")],
     newChar: Annotated[str, Field(..., description="New character")]
     ) -> str:
-    
+
+    message = str(message)
+    message = re.sub(char, newChar, message)
     return message
