@@ -11,7 +11,7 @@ import re
     namespace="integrations.utils",
 )
 
-def sleep(
+def find_and_replace(
     message: Annotated[str, Field(..., description="Message target to find the character to replace")],
     char: Annotated[str, Field(..., description="Character to replace")],
     newChar: Annotated[str, Field(..., description="New character")]
