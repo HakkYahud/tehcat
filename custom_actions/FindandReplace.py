@@ -14,7 +14,7 @@ import re
 def sleep(
     message: Annotated[str, Field(..., description="Message target to find the character to replace")],
     char: Annotated[str, Field(..., description="Character to replace")],
-    newChar: Annotate[str, Field(..., description="New character")]
+    newChar: Annotated[str, Field(..., description="New character")]
     ) -> str:
     
     return message
