@@ -1,6 +1,7 @@
 from typing import Annotated, Any, Literal
 from pydantic import Field
 from tracecat_registry import registry
+import re
 
 @registry.register(
     default_title="Remove HTML",
