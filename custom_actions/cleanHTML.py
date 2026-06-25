@@ -11,8 +11,10 @@ import re
     namespace="integrations.utils",
 )
 
-def cleanHTML2(
+def cleanHTML3(
     message: Annotated[Any, Field(..., description="Message to clean")]
     ) -> str:
 
+    message = str(message)
+    message = re.sub(r"a", "", message)
     return message
