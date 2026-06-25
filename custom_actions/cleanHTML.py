@@ -11,8 +11,8 @@ import re
     namespace="integrations.utils",
 )
 
-def cleanHTML(
-    message: Annotated[Any, Field(..., description="Message to clean")],
+def cleanHTML2(
+    message: Annotated[Any, Field(..., description="Message to clean")]
     ) -> str:
 
     return message
