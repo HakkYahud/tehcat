@@ -9,7 +9,7 @@ from tracecat_registry import registry
     namespace="integrations.utils",
 )
 
-def printMessage(
+def printmessage(
     mymessage: Annotated[str, Field(..., description="message to display")],
     ) -> str:
 
