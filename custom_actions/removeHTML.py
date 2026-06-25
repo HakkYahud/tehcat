@@ -18,6 +18,6 @@ def remove_html(
     content = re.sub("\[\'", "", content)
     content = re.sub("\'\]", "", content)
     content = re.sub(r"<[^>]+>", "", content)
-    content = re.sub(r"</[^>]+>", chr(10)+chr(10), content)
+    content = re.sub(r"</[^>]+>", r"\n\n", content)
 
     return content
