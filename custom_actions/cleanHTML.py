@@ -12,11 +12,7 @@ import re
 )
 
 def cleanHTML(
-    message: Annotated[str, Field(..., description="Message to clean")],
+    message: Annotated[Any, Field(..., description="Message to clean")],
     ) -> str:
 
-    message = re.sub("\[\'", "", message)
-    message = re.sub("\'\]", "", message)
-    message = re.sub(r"<[^>]+>", "", message)
-    message = re.sub(r"</[^>]+>", "", message)
     return message
