@@ -1,22 +1,16 @@
 from typing import Annotated, Any, Literal
 from pydantic import Field
 from tracecat_registry import registry
-import re
-
 
 @registry.register(
-    default_title="Remove HTML",
-    description="Remove HTML bracket",
+    default_title="Print a message",
+    description="Display the message",
     display_group="Utils",
     namespace="integrations.utils",
 )
 
-def removeHTML(
-    content: Annotated[Any, Field(..., description="HTML content to clean")],
-    chartoremove: Annotated[str, Field(..., description="Character to replace")],
-    replacementchar: Annotated[str, Field(..., description="New character")]
+def printMessage(
+    mymessage: Annotated[str, Field(..., description="message to display")],
     ) -> str:
 
-    content = str(content)
-    content = re.sub("<p>", "\n", content)
-    return content
+    return mymessage
