@@ -3,14 +3,20 @@ from pydantic import Field
 from tracecat_registry import registry
 
 @registry.register(
-    default_title="Print a message",
-    description="Display the message",
+    default_title="Remove HTML",
+    description="Remove HTML elements in the message",
     display_group="Utils",
     namespace="integrations.utils",
 )
 
-def printmessage(
-    mymessage: Annotated[str, Field(..., description="message to display")],
+def remove_html(
+    message: Annotated[Any, Field(..., description="message to clean html elements")],
     ) -> str:
 
-    return mymessage
+    content = str(message)
+    content = re.sub("\[\'", "", content)
+    content = re.sub("\'\]", "", content)
+    content = re.sub(r"<[^>]+>", "", content)
+    content = re.sub(r"</[^>]+>", chr(10)+chr(10), content)
+
+    return content
