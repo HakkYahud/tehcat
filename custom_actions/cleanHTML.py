@@ -5,13 +5,13 @@ import re
 
 
 @registry.register(
-    default_title="Find and Replace",
-    description="Replace some character by another character",
+    default_title="Clean HTML",
+    description="Replace some HTML bracket of a message",
     display_group="Utils",
     namespace="integrations.utils",
 )
 
-def find_and_replace(
+def cleanHTML(
     message: Annotated[Any, Field(..., description="Message to clean")],
     ) -> str:
 
