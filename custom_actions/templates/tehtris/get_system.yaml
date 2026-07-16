@@ -1,0 +1,36 @@
+type: action
+definition:
+  name: get_system
+  namespace: integrations.tehtris
+  title: Get system from Tehtris XDR
+  description: Get the detail of a system
+  display_group: Tehtris
+  secrets:
+    - name: tehtris
+      keys:
+        - apikey
+      optional_keys: null
+      optional: false
+  expects:
+    trigram:
+      type: str
+      description: The EDR trigram to target
+      default: null
+    applianceid:
+      type: str
+      description: appliance id of the hostname
+      default: null
+    uuid:
+      type: str
+      description: uuid to target
+      default: null
+  steps:
+    - ref: get_system
+      action: core.http_request
+      args:
+        url: https://${{ inputs.trigram }}.api.tehtris.net/api/edr/v2/data/${{ inputs.applianceid }}/${{ inputs.uuid }}
+        method: GET
+        headers:
+          accept: application/json
+          Authorization: Basic ${{ SECRETS.tehtris.apikey }}
+  returns: ${{ steps.get_system.result }}
