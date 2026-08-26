@@ -3,6 +3,7 @@ from pydantic import Field
 from tracecat_registry import RegistrySecret, registry, secrets
 import requests
 import json
+import re
 
 thehive_secret = RegistrySecret(
     name="thehive4",
@@ -11,14 +12,14 @@ thehive_secret = RegistrySecret(
 
 @registry.register(
     default_title="Clean Observables",
-    description="Remove irrelevant observables of a case on TheHive",
+    description="Remove irrelevant observables of the alert on TheHive",
     display_group="TheHive",
     namespace="integration.thehive",
     secrets=[thehive_secret],
 )
 
 async def clean_observable(
-    case_id: Annotated[
+    alert_id: Annotated[
         str,
         Field(
             ...,
@@ -32,22 +33,22 @@ async def clean_observable(
     apiPath = "/api/v1/query"
     url = baseUrl + apiPath
     # Get Observable
-    data = {"query":[{"_name":"getCase","idOrName":"~214036664"},{"_name":"observables"},{"_name":"sort","_fields":[{"startDate":"desc"}]}]}
+    data = {"query":[{"_name":"getAlert","idOrName":alert_id},{"_name":"observables"},{"_name":"sort","_fields":[{"startDate":"desc"}]},{"_name":"page","from":0,"to":15,"extraData":["seen"]}]}
     r = requests.post(url, headers=headers, json=data)
     r.raise_for_status()
     
     for obs in r.json():
-      apiPathObs = f"/api/case/artifact/{obs['_id']}"
-      if re.search(r"\{\{.*?\}\}", i["data"]):
-          print(f'Data removed: {i["data"]}')
+      apiPathObs = f"/api/alert/artifact/{obs['_id']}"
+      if re.search(r"\{\{.*?\}\}", obs["data"]):
+          print(f'Data removed: {obs["data"]}')
           resp = requests.delete(url + apiPathObs, headers=headers)
           resp.raise_for_status()
-      elif i["data"] == "": 
-          print(f'Data removed: {i["data"]}')
+      elif obs["data"] == "": 
+          print(f'Data removed: {obs["data"]}')
           resp = requests.delete(url + apiPathObs, headers=headers)
           resp.raise_for_status()
-      elif i["dataType"] == "filepath":
-          print(f'Ignoring Similarities on {i["data"]}')
+      elif obs["dataType"] == "filepath":
+          print(f'Ignoring Similarities on {obs["data"]}')
           data = {"ignoreSimilarity":True}
           resp = requests.patch(url + apiPathObs, json=data, headers=headers)
           resp.raise_for_status()
