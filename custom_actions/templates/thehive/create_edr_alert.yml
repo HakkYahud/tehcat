@@ -66,9 +66,9 @@ definition:
           tags:
             - ${{ inputs.trigram }}
             - EDR
-          type: 
+          type: ${{ inputs.type_alert }}
           title: ${{ inputs.title_alert }} detected
-          source: ${{ inputs.type_alert }}
+          source: Tehtris EDR
           artifacts:
             - data: ${{ inputs.hostname }}
               message: Endpoint's Hostname
@@ -89,8 +89,7 @@ definition:
               message: Complete command line
               dataType: cmdline
           sourceRef: ${{ inputs.sourceRef }}
-          description: ${{ inputs.description }} - https://${{ inputs.trigram
-            }}.tehtris.net/Alerts?id=${{ inputs.sourceRef }}
+          description: ${{ inputs.description }} - https://${{ inputs.trigram }}.tehtris.net/Alerts?id=${{ inputs.sourceRef }}
           customFields:
             rflid:
               order: 2
