@@ -1,0 +1,136 @@
+type: action
+definition:
+  name: create_edr_alert
+  namespace: integrations.thehive
+  title: Create EDR Alert
+  description: Create EDR Alert on TheHive
+  display_group: TheHive
+  secrets:
+    - name: thehive4
+      keys:
+        - apikey
+        - url
+  expects:
+    pid:
+      type: str
+      description: pid in the alert
+    tag:
+      type: str
+      description: TAG of the endpoint
+    uid:
+      type: str
+      description: UID where the alert originated
+    hash:
+      type: str
+      description: hash of the file
+    kbid:
+      type: str
+      description: KBID of the alert
+    ppid:
+      type: str
+      description: parent process id
+    ip_dst:
+      type: str
+      description: Destination IP
+    ip_src:
+      type: str
+      description: Source IP
+    module:
+      type: str
+      description: Module detecting the alert
+    source:
+      type: str
+      description: source of the alert
+    cmdline:
+      type: str
+      description: Command line
+    trigram:
+      type: str
+      description: Trigram of the customer's XDR
+    filepath:
+      type: str
+      description: path of the binary
+    hostname:
+      type: str
+      description: Hostname where the alert originated
+    severity:
+      type: int
+      description: Severity of the alert
+    username:
+      type: str
+      description: username
+    sourceRef:
+      type: str
+      description: eventID
+    client_uid:
+      type: str
+      description: Client uid from table
+    type_alert:
+      type: str
+      description: Alert type
+    applianceid:
+      type: str
+      description: ID of the appliance
+    title_alert:
+      type: str
+      description: Alert title
+    description_alert:
+      type: str
+      description: Description of the alert, support markdown
+    processCreateDate:
+      type: str
+      description: Date and time of the process
+  steps:
+    - ref: create_edr_alert
+      action: core.http_request
+      args:
+        url: ${{ SECRETS.thehive4.url }}/api/alert
+        method: POST
+        headers:
+          Content-Type: application/json
+          Authorization: Bearer ${{ SECRETS.thehive4.apikey }}
+        payload:
+          tags:
+            - ${{ inputs.trigram }}
+            - client_uid:${{ inputs.client_uid }}
+            - EDR
+          type: ${{ inputs.type_alert }}
+          title: ${{ inputs.title_alert }} detected
+          source: ${{ inputs.type_alert }}
+          severity: ${{ inputs.severity }}
+          artifacts:
+            - data: ${{ inputs.hostname }}
+              message: Endpoint's Hostname
+              dataType: hostname
+            - data: ${{ inputs.uid }}
+              message: Endpoint's UUID
+              dataType: other
+            - data: ${{ inputs.username }}
+              message: Username on the endpoint
+              dataType: username
+            - data: ${{ inputs.hash }}
+              message: Hash of the file
+              dataType: hash
+            - data: ${{ inputs.filepath }}
+              message: Complete file path
+              dataType: filepath
+            - data: ${{ inputs.cmdline }}
+              message: Complete command line
+              dataType: cmdline
+          sourceRef: ${{ inputs.sourceRef }}
+          description: ${{ inputs.description }} - https://${{ inputs.trigram
+            }}.tehtris.net/Alerts?id=${{ inputs.sourceRef }}
+          customFields:
+            rflid:
+              order: 2
+              string: ${{ inputs.applianceid }}
+            module:
+              order: 1
+              string: ${{ inputs.module }}
+            eventid:
+              order: 3
+              string: ${{ inputs.sourceRef }}
+            trigram:
+              order: 0
+              string: ${{ inputs.trigram }}
+  returns: ${{ steps.create_edr_alert.result.data }}
