@@ -90,14 +90,4 @@ definition:
               dataType: cmdline
           sourceRef: ${{ inputs.sourceRef }}
           description: ${{ inputs.description }} - https://${{ inputs.trigram }}.tehtris.net/Alerts?id=${{ inputs.sourceRef }}
-          customFields:
-            rflid:
-              order: 1
-              string: ${{ inputs.applianceid }}
-            eventid:
-              order: 2
-              string: ${{ inputs.sourceRef }}
-            trigram:
-              order: 0
-              string: ${{ inputs.trigram }}
   returns: ${{ steps.create_edr_alert.result.data }}
