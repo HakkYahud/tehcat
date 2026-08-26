@@ -4,6 +4,7 @@ from tracecat_registry import RegistrySecret, registry, secrets
 import requests
 import json
 import re
+import time
 
 thehive_secret = RegistrySecret(
     name="thehive4",
@@ -36,7 +37,7 @@ async def clean_observable(
     data = {"query":[{"_name":"getAlert","idOrName":alert_id},{"_name":"observables"},{"_name":"sort","_fields":[{"startDate":"desc"}]},{"_name":"page","from":0,"to":15,"extraData":["seen"]}]}
     r = requests.post(url, headers=headers, json=data)
     r.raise_for_status()
-    
+    time.sleep(3)
     for obs in r.json():
       apiPathObs = f"/api/alert/artifact/{obs['_id']}"
       if re.search(r"\{\{.*?\}\}", obs["data"]):
