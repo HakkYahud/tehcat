@@ -14,33 +14,12 @@ definition:
     pid:
       type: str
       description: pid in the alert
-    tag:
-      type: str
-      description: TAG of the endpoint
     uid:
       type: str
       description: UID where the alert originated
     hash:
       type: str
       description: hash of the file
-    kbid:
-      type: str
-      description: KBID of the alert
-    ppid:
-      type: str
-      description: parent process id
-    ip_dst:
-      type: str
-      description: Destination IP
-    ip_src:
-      type: str
-      description: Source IP
-    module:
-      type: str
-      description: Module detecting the alert
-    source:
-      type: str
-      description: source of the alert
     cmdline:
       type: str
       description: Command line
@@ -53,18 +32,12 @@ definition:
     hostname:
       type: str
       description: Hostname where the alert originated
-    severity:
-      type: int
-      description: Severity of the alert
     username:
       type: str
       description: username
     sourceRef:
       type: str
       description: eventID
-    client_uid:
-      type: str
-      description: Client uid from table
     type_alert:
       type: str
       description: Alert type
@@ -92,12 +65,10 @@ definition:
         payload:
           tags:
             - ${{ inputs.trigram }}
-            - client_uid:${{ inputs.client_uid }}
             - EDR
-          type: ${{ inputs.type_alert }}
+          type: 
           title: ${{ inputs.title_alert }} detected
           source: ${{ inputs.type_alert }}
-          severity: ${{ inputs.severity }}
           artifacts:
             - data: ${{ inputs.hostname }}
               message: Endpoint's Hostname
