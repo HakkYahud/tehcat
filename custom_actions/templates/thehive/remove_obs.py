@@ -28,14 +28,13 @@ async def clean_observable(
         ),
     ],
 ) -> dict[str, Any]:
-    baseUrl=secrets.get("url")
+    urlrl=secrets.get("url")
     apikey=secrets.get("apikey")
     headers = {"Content-Type":"application/json", "Authorization":f"Bearer {apikey}"}
     apiPath = "/api/v1/query"
-    url = baseUrl + apiPath
     # Get Observable
     data = {"query":[{"_name":"getAlert","idOrName":alert_id},{"_name":"observables"},{"_name":"sort","_fields":[{"startDate":"desc"}]},{"_name":"page","from":0,"to":15,"extraData":["seen"]}]}
-    r = requests.post(url, headers=headers, json=data)
+    r = requests.post(url + apiPath, headers=headers, json=data)
     r.raise_for_status()
     time.sleep(3)
     for obs in r.json():
