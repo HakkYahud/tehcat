@@ -88,14 +88,12 @@ definition:
             - data: ${{ inputs.filepath }}
               message: Complete file path
               dataType: filepath
-              ignoreSimilarities: True
             - data: ${{ inputs.cmdline }}
               message: Complete command line
               dataType: cmdline
             - data: ${{ inputs.url }}
               message: URL detected
               dataType: url
-              ignoreSimilarities: True
           sourceRef: ${{ inputs.sourceRef }}
           description: ${{ inputs.description }} - https://${{ inputs.trigram }}.tehtris.net/Alerts?id=${{ inputs.sourceRef }}
   returns: ${{ steps.create_edr_alert.result.data }}
