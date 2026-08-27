@@ -53,6 +53,9 @@ definition:
     processCreateDate:
       type: str
       description: Date and time of the process
+    url:
+      type: str
+      description: url found in the incident
   steps:
     - ref: create_edr_alert
       action: core.http_request
@@ -89,7 +92,7 @@ definition:
             - data: ${{ inputs.cmdline }}
               message: Complete command line
               dataType: cmdline
-            - data: '${{event.url}}'
+            - data: ${{ inputs.url }}
               message: URL detected
               dataType: url
               ignoreSimilarities: True
