@@ -28,7 +28,7 @@ async def clean_observable(
         ),
     ],
 ) -> dict[str, Any]:
-    urlrl=secrets.get("url")
+    url=secrets.get("url")
     apikey=secrets.get("apikey")
     headers = {"Content-Type":"application/json", "Authorization":f"Bearer {apikey}"}
     apiPath = "/api/v1/query"
