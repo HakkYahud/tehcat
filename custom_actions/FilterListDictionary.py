@@ -16,6 +16,7 @@ def filter_listDict(
     ) -> dict:
 
     for item in list:
-      if item.get(key) == value
+      if item.get(key) == value:
+        return item
 
-    return item
+    return []
