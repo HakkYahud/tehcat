@@ -11,7 +11,7 @@ from tracecat_registry import registry
 
 def filter_listDict(
     list: Annotated[list, Field(..., description="list to filter")],
-    key: Annotated[str, Field(..., description="value to search")],
+    key: Annotated[str, Field(..., description="key to target")],
     value: Annotated[str, Field(..., description="value to search")],
     ) -> dict:
 
