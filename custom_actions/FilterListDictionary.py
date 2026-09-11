@@ -10,13 +10,10 @@ from tracecat_registry import registry
 )
 
 def filter_listDict(
-    list: Annotated[Any, Field(..., description="list to filter")],
-    key: Annotated[Any, Field(..., description="key to target")],
-    value: Annotated[Any, Field(..., description="value to search")]
-    ) -> dict:
+    message: Annotated[Any, Field(..., description="Message target to find the character to replace")],
+    char: Annotated[str, Field(..., description="Character to replace")],
+    newChar: Annotated[str, Field(..., description="New character")]
+    ) -> str:
 
-    for item in list:
-      if item.get(key) == value:
-        return item
-
-    return []
+    message = str(message)
+    return message
